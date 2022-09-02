@@ -1,0 +1,10 @@
+{
+  "name": "Tweet To Image",
+  "id": "1147599493828471396",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma",
+    "figjam"
+  ]
+}
