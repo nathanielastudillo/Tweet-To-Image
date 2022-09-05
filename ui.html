@@ -1,0 +1,17 @@
+<style>
+    input {
+        display: block;
+    }
+</style>
+
+<h1>Test</h1>
+<label for="tweet-input">Tweets</label>
+<textarea id="tweet-input">Test </textarea>
+<button id="submit-tweets">Generate</button>
+
+<script>
+    const tweetText = document.getElementById('tweet-input').value;
+    document.getElementById("submit-tweets").onclick = () => {
+        parent.postMessage({pluginMessage: {tweetText}}, '*');
+    }
+</script>

@@ -1,62 +1,40 @@
-// This file holds the main code for the plugin. It has access to the *document*.
-// You can access browser APIs such as the network by creating a UI which contains
-// a full browser environment (see documentation).
+figma.showUI(__html__);
 
-// Runs this code if the plugin is run in Figma
-if (figma.editorType === "figma") {
-  // This plugin creates 5 rectangles on the screen.
-  const numberOfRectangles = 5;
+async function main(msg: { tweetText: string; }) {
 
-  const nodes: SceneNode[] = [];
-  for (let i = 0; i < numberOfRectangles; i++) {
-    const rect = figma.createRectangle();
-    rect.x = i * 150;
-    rect.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
-    figma.currentPage.appendChild(rect);
-    nodes.push(rect);
-  }
-  figma.currentPage.selection = nodes;
-  figma.viewport.scrollAndZoomIntoView(nodes);
+  // wait for fonts
+  await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+  console.log(msg.tweetText);
 
-  // Make sure to close the plugin when you're done. Otherwise the plugin will
-  // keep running, which shows the cancel button at the bottom of the screen.
-  figma.closePlugin();
+  // eventually need to handle the case where msg is a long string of comma separated tweets 
+  // might make more sense to handle this in the UI and let users paste multiple tweets into multiple text boxes 
 
-  // If the plugins isn't run in Figma, run this code
-} else {
-  // This plugin creates 5 shapes and 5 connectors on the screen.
-  const numberOfShapes = 5;
+   // *** START FUNCTION ***
+  // create frame with black background
+  const frame = figma.createFrame();
+  frame.fills = [{ type: 'SOLID', color: { r: 0, g: 0, b: 0 } }]
 
-  const nodes: SceneNode[] = [];
-  for (let i = 0; i < numberOfShapes; i++) {
-    const shape = figma.createShapeWithText();
-    // You can set shapeType to one of: 'SQUARE' | 'ELLIPSE' | 'ROUNDED_RECTANGLE' | 'DIAMOND' | 'TRIANGLE_UP' | 'TRIANGLE_DOWN' | 'PARALLELOGRAM_RIGHT' | 'PARALLELOGRAM_LEFT'
-    shape.shapeType = "ROUNDED_RECTANGLE";
-    shape.x = i * (shape.width + 200);
-    shape.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
-    figma.currentPage.appendChild(shape);
-    nodes.push(shape);
-  }
+  // set frame layout to center text
+  frame.layoutMode = 'VERTICAL';
+  frame.primaryAxisAlignItems = 'CENTER'
+  frame.counterAxisAlignItems = 'CENTER'
 
-  for (let i = 0; i < numberOfShapes - 1; i++) {
-    const connector = figma.createConnector();
-    connector.strokeWeight = 8;
+  // resize to counter the resize apparently triggered by setting layoutMode
+  frame.resize(1080, 1080);
+  
+  //create white text and center
+  const text = figma.createText();
+  text.characters = msg.tweetText;
+  text.fontSize = 64;
+  text.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }]
+  //add text as child of parent via. frame.appendChild()
+  frame.appendChild(text);
+  // *** END FUNCTION ***
 
-    connector.connectorStart = {
-      endpointNodeId: nodes[i].id,
-      magnet: "AUTO",
-    };
-
-    connector.connectorEnd = {
-      endpointNodeId: nodes[i + 1].id,
-      magnet: "AUTO",
-    };
-  }
-
-  figma.currentPage.selection = nodes;
-  figma.viewport.scrollAndZoomIntoView(nodes);
-
-  // Make sure to close the plugin when you're done. Otherwise the plugin will
-  // keep running, which shows the cancel button at the bottom of the screen.
-  figma.closePlugin();
+  figma.closePlugin()
 }
+
+figma.ui.onmessage = msg => {
+  main(msg)
+} 
+
