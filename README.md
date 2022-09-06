@@ -1,3 +1,8 @@
+# Tweet To Image Plugin 
+This plugin takes tweets separated by `%|%` and generates frames with white text on a black background 1080px x 1080px.
+I wrote this to help me expand my tweets onto instagram. Bridge the gap, friends. 
+
+# FIGMA SETUP:
 Below are the steps to get your plugin running. You can also find instructions at:
 
   https://www.figma.com/plugin-docs/setup/
@@ -38,3 +43,4 @@ We recommend writing TypeScript code using Visual Studio code:
     you reopen Visual Studio Code.
 
 That's it! Visual Studio Code will regenerate the JavaScript file every time you save.
+
