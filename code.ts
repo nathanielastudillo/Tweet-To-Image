@@ -49,11 +49,10 @@ async function main(msg: { tweetText: any; }) {
       createTweetFrame(tweet, index)
     }
   }
-  
+
   figma.closePlugin()
 }
 
 figma.ui.onmessage = msg => {
   main(msg)
 }
-
