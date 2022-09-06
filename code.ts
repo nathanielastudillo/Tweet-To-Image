@@ -1,6 +1,6 @@
 figma.showUI(__html__);
 
-async function main(msg: { tweetText: string; }) {
+async function main(msg: { tweetText: any; }) {
 
   // wait for fonts
   await figma.loadFontAsync({ family: "Inter", style: "Regular" });
