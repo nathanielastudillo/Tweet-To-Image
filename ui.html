@@ -6,12 +6,13 @@
 
 <h1>Test</h1>
 <label for="tweet-input">Tweets</label>
-<textarea id="tweet-input">Test </textarea>
+<textarea id="tweet-input"></textarea>
 <button id="submit-tweets">Generate</button>
 
 <script>
-    const tweetText = document.getElementById('tweet-input').value;
+    
     document.getElementById("submit-tweets").onclick = () => {
+        const tweetText = document.getElementById('tweet-input').value;
         parent.postMessage({pluginMessage: {tweetText}}, '*');
     }
 </script>
