@@ -2,7 +2,7 @@
 This plugin takes tweets separated by `%|%` and generates frames with white text on a black background 1080px x 1080px.
 I wrote this to help me expand my tweets onto instagram. Bridge the gap, friends. 
 
-# FIGMA SETUP:
+# FIGMA PLUGIN DEV ENV SETUP:
 Below are the steps to get your plugin running. You can also find instructions at:
 
   https://www.figma.com/plugin-docs/setup/
