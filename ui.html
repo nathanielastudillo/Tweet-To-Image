@@ -1,16 +1,55 @@
 <style>
-    input {
-        display: block;
+    body {
+        background-color: #1DA1F2; 
     }
+    .flex {
+        min-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #1DA1F2;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+    .textarea {
+  display: block;
+  width: 300px;
+  overflow: hidden;
+  resize: both;
+  min-height: 200px;
+  line-height: 20px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 1px 6px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.content {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-direction: column;
+}
 </style>
 
-<h1>Test</h1>
-<label for="tweet-input">Tweets</label>
-<textarea id="tweet-input"></textarea>
+<div class="flex">
+    <div class="content">
+    <p>Enter tweets separated by "%|%" to generate frames with your tweets on a black background with white text.
+        <br>
+        You can then mutli-select the generated frames and export them.
+    </p>
+<p><span id="tweet-input" class="textarea" role="textbox" contenteditable></span></p>
 <button id="submit-tweets">Generate</button>
+    </div>
+    
+</div>
 
 <script>
-    
     document.getElementById("submit-tweets").onclick = () => {
         const tweetText = document.getElementById('tweet-input').value;
         parent.postMessage({pluginMessage: {tweetText}}, '*');
